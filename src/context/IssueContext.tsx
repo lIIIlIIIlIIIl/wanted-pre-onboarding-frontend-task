@@ -24,7 +24,7 @@ export function IssueListProvider({ children }: IssueListProviderProps) {
     const getList = async () => {
       const response = await issueListservice.get(page);
 
-      if (response) setIssueList((prev) => [...prev, response]);
+      if (response) setIssueList((prev) => [...prev, ...response]);
     };
 
     getList();

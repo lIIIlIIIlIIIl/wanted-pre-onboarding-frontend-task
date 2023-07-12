@@ -3,6 +3,7 @@ import { useIssue } from "../context/IssueContext";
 
 export default function Home() {
   const response = useIssue();
+  console.log(response);
 
   return (
     <main className="main">
