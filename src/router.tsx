@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import GeneralLayout from "./layout/GeneralLayout";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 interface RouterBase {
   path: string;
@@ -23,7 +24,12 @@ export const routers = createBrowserRouter(
   routerData.map((router) => {
     return {
       path: router.path,
-      element: <GeneralLayout>{router.element}</GeneralLayout>,
+      element: (
+        <GeneralLayout>
+          <ScrollToTop />
+          {router.element}
+        </GeneralLayout>
+      ),
     };
   })
 );
