@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useIssueList } from "../../context/IssueContext";
 import IssueItem from "../../components/IssueItem";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const Child = () => {
   const response = useIssueList();
@@ -31,6 +32,7 @@ const Child = () => {
           </div>
         </section>
       ))}
+      {response?.isLoading ? <LoadingSpinner /> : null}
     </>
   );
 };

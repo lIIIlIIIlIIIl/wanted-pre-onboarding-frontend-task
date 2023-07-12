@@ -4,6 +4,7 @@ import IssueDetailService from "../service/IssueDetailService";
 
 interface DetailContextType {
   issue: IssueType;
+  isLoading: boolean;
 }
 
 type IssueType = IssueDetailType;
@@ -25,6 +26,7 @@ const DEFAULT_VALUE = {
 
 const DetailContext = createContext<DetailContextType>({
   issue: DEFAULT_VALUE,
+  isLoading: false,
 });
 
 export const useIssue = () => useContext(DetailContext);
@@ -36,13 +38,15 @@ export function IssueDetailProvider({
   id = 0,
 }: IssueListProviderProps) {
   const [issue, setIssue] = useState<IssueType>(DEFAULT_VALUE);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const getList = async () => {
+      setIsLoading(true);
       const response = await issueDetailservice.get(Number(id));
       setIssue(response);
+      setIsLoading(false);
     };
-
     getList();
 
     return () => {
@@ -51,7 +55,7 @@ export function IssueDetailProvider({
   }, [id]);
 
   return (
-    <DetailContext.Provider value={{ issue }}>
+    <DetailContext.Provider value={{ issue, isLoading }}>
       {children}
     </DetailContext.Provider>
   );

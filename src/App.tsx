@@ -1,13 +1,8 @@
 import { RouterProvider } from "react-router-dom";
 import { routers } from "./router";
-import { IssueListProvider } from "./context/IssueContext";
 
 function App() {
-  return (
-    <IssueListProvider>
-      <RouterProvider router={routers} />
-    </IssueListProvider>
-  );
+  return <RouterProvider router={routers} />;
 }
 
 export default App;
