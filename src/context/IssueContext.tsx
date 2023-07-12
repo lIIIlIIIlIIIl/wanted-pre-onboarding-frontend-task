@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { IssueType } from "../types/issueTpye";
-import IssueListService from "../service/IssueListService";
+import IssueService from "../service/IssueService";
 
 interface IssueContextType {
   issueList: IssueType[][];
@@ -12,9 +12,9 @@ interface IssueListProviderProps {
 
 const IssueContext = createContext<IssueContextType | null>(null);
 
-export const useIssue = () => useContext(IssueContext);
+export const useIssueList = () => useContext(IssueContext);
 
-const issueListservice = new IssueListService();
+const issueListservice = new IssueService();
 
 export function IssueListProvider({ children }: IssueListProviderProps) {
   const [issueList, setIssueList] = useState<IssueType[][]>([]);
@@ -22,7 +22,7 @@ export function IssueListProvider({ children }: IssueListProviderProps) {
 
   useEffect(() => {
     const getList = async () => {
-      const response = await issueListservice.get(page);
+      const response = await issueListservice.getIssueList(page);
 
       if (response) setIssueList((prev) => [...prev, ...response]);
     };

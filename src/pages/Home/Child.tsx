@@ -1,23 +1,24 @@
-import IssueItem from "../components/IssueItem";
-import { useIssue } from "../context/IssueContext";
+import { Link } from "react-router-dom";
+import { useIssueList } from "../../context/IssueContext";
+import IssueItem from "../../components/IssueItem";
 
-export default function Home() {
-  const response = useIssue();
-  console.log(response);
+const Child = () => {
+  const response = useIssueList();
 
   return (
-    <main className="main">
+    <>
       {response?.issueList.map((item, idx) => (
         <section key={idx} className="list">
           {item.map((issue) => (
-            <IssueItem
-              key={issue.number}
-              number={issue.number}
-              title={issue.title}
-              writer={issue.writer}
-              date={issue.date}
-              comment={issue.comment}
-            />
+            <Link key={issue.number} to={`/detail/${issue.number}`}>
+              <IssueItem
+                number={issue.number}
+                title={issue.title}
+                writer={issue.writer}
+                date={issue.date}
+                comment={issue.comment}
+              />
+            </Link>
           ))}
           <div className="advertisement">
             <a href="https://www.wanted.co.kr" target="_blank" rel="noreferrer">
@@ -30,6 +31,8 @@ export default function Home() {
           </div>
         </section>
       ))}
-    </main>
+    </>
   );
-}
+};
+
+export default Child;

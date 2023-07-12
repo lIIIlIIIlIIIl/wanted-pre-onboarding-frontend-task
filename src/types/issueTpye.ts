@@ -6,6 +6,6 @@ export interface IssueType {
   comment: number;
 }
 
-export interface IssueDetailProps extends IssueType {
+export interface IssueDetailType extends IssueType {
   avatar_url: string;
 }

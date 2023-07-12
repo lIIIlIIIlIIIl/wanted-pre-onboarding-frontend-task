@@ -1,16 +1,22 @@
 import { IssueType } from "../types/issueTpye";
-import { Root, User } from "../types/response";
+import { Root } from "../types/response";
 import HttpClient from "./HttpClient";
 
-class IssueListService extends HttpClient {
-  async get(page: number) {
+class IssueService extends HttpClient {
+  async getIssueList(page: number) {
     const response = await this.axiosInstance.get(
       `/repos/facebook/react/issues?state=open&sort=comments&direction=desc&per_page=12&page=${page}`
     );
 
-    // console.log(this.divide(this.filter(response.data)));
-    // return this.filter(response.data);
-    return this.divide(this.filter(response.data));
+    return this.issueDivide(this.filter(response.data));
+  }
+
+  async getIssueDetail(issueNumber: number) {
+    const response = await this.axiosInstance.get(
+      `/repos/facebook/react/issues/${issueNumber}`
+    );
+
+    return this.filter(response.data);
   }
 
   filter(fullData: Root[]) {
@@ -34,7 +40,7 @@ class IssueListService extends HttpClient {
     return `${year}년 ${month}월 ${day}일`;
   }
 
-  divide(data: IssueType[]) {
+  issueDivide(data: IssueType[]) {
     const result = [];
     for (let i = 0; i < data.length; i += 4) {
       result.push(data.slice(i, i + 4));
@@ -43,4 +49,4 @@ class IssueListService extends HttpClient {
   }
 }
 
-export default IssueListService;
+export default IssueService;

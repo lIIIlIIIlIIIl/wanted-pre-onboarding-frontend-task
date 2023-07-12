@@ -1,6 +1,11 @@
 @import "reset.css";
 @import "issueList.css";
 
+a {
+  color: black;
+  text-decoration: none;
+}
+
 .root {
   width: 400px;
   height: 812px;

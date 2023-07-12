@@ -13,7 +13,10 @@ const routerData: RouterBase[] = [
     path: "/",
     element: <Home />,
   },
-  { path: "/detail/:id", element: <Detail /> },
+  {
+    path: "/detail/:id",
+    element: <Detail />,
+  },
 ];
 
 export const routers = createBrowserRouter(
