@@ -2,34 +2,24 @@ import { IssueType } from "../types/issueTpye";
 import { Root } from "../types/response";
 import HttpClient from "./HttpClient";
 
-class IssueService extends HttpClient {
-  async getIssueList(page: number) {
-    const response = await this.axiosInstance.get(
-      `/repos/facebook/react/issues?state=open&sort=comments&direction=desc&per_page=12&page=${page}`
-    );
-
-    return this.issueDivide(this.filter(response.data));
-  }
-
-  async getIssueDetail(issueNumber: number) {
+class IssueDetailService extends HttpClient {
+  async get(issueNumber: number) {
     const response = await this.axiosInstance.get(
       `/repos/facebook/react/issues/${issueNumber}`
     );
-
     return this.filter(response.data);
   }
 
-  filter(fullData: Root[]) {
-    return fullData.map((data: Root) => {
-      const responseData = {
-        number: data.number,
-        title: data.title,
-        writer: data.user.login,
-        date: this.changeDate(data.updated_at),
-        comment: data.comments,
-      };
-      return responseData;
-    });
+  filter(data: Root) {
+    return {
+      number: data.number,
+      title: data.title,
+      writer: data.user.login,
+      date: this.changeDate(data.updated_at),
+      comment: data.comments,
+      body: data.body,
+      avatar_url: data.user.avatar_url,
+    };
   }
 
   changeDate(date: string) {
@@ -49,4 +39,4 @@ class IssueService extends HttpClient {
   }
 }
 
-export default IssueService;
+export default IssueDetailService;

@@ -1,0 +1,12 @@
+.detail_avatar > img {
+  width: 45px;
+  height: 45px;
+}
+
+.fl {
+  display: flex;
+}
+
+.detail_mark {
+  padding: 20px 0;
+}

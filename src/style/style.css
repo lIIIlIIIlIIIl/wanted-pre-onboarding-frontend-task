@@ -1,5 +1,6 @@
 @import "reset.css";
 @import "issueList.css";
+@import "issueDetail.css";
 
 a {
   color: black;

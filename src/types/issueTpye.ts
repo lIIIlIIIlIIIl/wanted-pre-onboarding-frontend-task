@@ -8,4 +8,5 @@ export interface IssueType {
 
 export interface IssueDetailType extends IssueType {
   avatar_url: string;
+  body: string;
 }

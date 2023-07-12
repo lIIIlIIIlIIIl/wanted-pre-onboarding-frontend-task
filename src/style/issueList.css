@@ -1,6 +1,6 @@
 .main {
   height: 700px;
-  padding: 15px;
+  padding: 10px;
   overflow-y: auto;
   scroll-behavior: smooth;
 }
@@ -44,7 +44,7 @@
 .item_title {
   display: flex;
   gap: 10px;
-  width: 280px;
+  max-width: 280px;
 
   font-size: 18px;
 }
@@ -64,5 +64,15 @@
 }
 
 .item_comment {
-  font-size: 14px;
+  font-size: 12px;
+}
+
+.item_fr {
+  width: 15%;
+}
+.item_sec {
+  width: 75%;
+}
+.item_tr {
+  width: 20%;
 }
