@@ -1,5 +1,3 @@
-import React from "react";
-import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import { routers } from "./router";
 import { IssueListProvider } from "./context/IssueContext";

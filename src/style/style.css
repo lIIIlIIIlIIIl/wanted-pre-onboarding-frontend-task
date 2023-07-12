@@ -1,0 +1,18 @@
+@import "reset.css";
+@import "issueList.css";
+
+.root {
+  width: 400px;
+  height: 812px;
+  margin: 0 auto;
+  border: 3px solid black;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0;
+  font-size: 24px;
+  font-weight: bold;
+}

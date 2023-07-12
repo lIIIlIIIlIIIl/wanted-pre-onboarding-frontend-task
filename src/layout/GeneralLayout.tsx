@@ -5,10 +5,10 @@ interface GeneralLayoutProps {
 }
 const GeneralLayout: React.FC<GeneralLayoutProps> = ({ children }) => {
   return (
-    <>
+    <div className="root">
       <Header />
       <main>{children}</main>
-    </>
+    </div>
   );
 };
 

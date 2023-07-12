@@ -7,6 +7,8 @@ class IssueListService extends HttpClient {
       `/repos/facebook/react/issues?state=open&sort=comments&direction=desc&per_page=4&page=${page}`
     );
 
+    this.changeDate("2023-05-18T04:13:02Z");
+
     return this.filter(response.data);
   }
 
@@ -16,11 +18,18 @@ class IssueListService extends HttpClient {
         number: data.number,
         title: data.title,
         writer: data.user.login,
-        date: data.updated_at,
+        date: this.changeDate(data.updated_at),
         comment: data.comments,
       };
       return responseData;
     });
+  }
+  changeDate(date: string) {
+    const newDate = new Date(date);
+    const year = newDate.getFullYear();
+    const month = newDate.getMonth() + 1;
+    const day = newDate.getDate();
+    return `${year}년 ${month}월 ${day}일`;
   }
 }
 
