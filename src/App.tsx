@@ -2,9 +2,14 @@ import React from "react";
 import "./App.css";
 import { RouterProvider } from "react-router-dom";
 import { routers } from "./router";
+import { IssueListProvider } from "./context/IssueContext";
 
 function App() {
-  return <RouterProvider router={routers} />;
+  return (
+    <IssueListProvider>
+      <RouterProvider router={routers} />
+    </IssueListProvider>
+  );
 }
 
 export default App;
