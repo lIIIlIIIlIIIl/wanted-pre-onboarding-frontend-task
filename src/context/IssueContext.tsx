@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { IssueType } from "../types/issueTpye";
 import IssueListService from "../service/IssueListService";
 
@@ -23,25 +24,45 @@ export function IssueListProvider({ children }: IssueListProviderProps) {
   const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
-    const getList = async () => {
+    return () => {
+      setIssueList([]);
+      setPage(1);
+    };
+  }, []);
+
+  const observer = useRef<IntersectionObserver | null>(null);
+  const target = useRef<HTMLDivElement | null>(null);
+
+  const handleIntersection = async (entries: IntersectionObserverEntry[]) => {
+    const entry = entries[0];
+    if (entry.isIntersecting) {
+      // 추가 데이터 로드
       setIsLoading(true);
       const response = await issueListservice.get(page);
 
       if (response) setIssueList((prev) => [...prev, ...response]);
+      setPage((prev) => prev + 1);
       setIsLoading(false);
-    };
+    }
+  };
 
-    getList();
+  useEffect(() => {
+    observer.current = new IntersectionObserver(handleIntersection);
+    if (target.current) {
+      observer.current.observe(target.current);
+    }
 
     return () => {
-      setIssueList([]);
-      setPage(1);
+      if (observer.current && target.current) {
+        observer.current.unobserve(target.current);
+      }
     };
   }, [page]);
 
   return (
     <IssueContext.Provider value={{ issueList, isLoading }}>
       {children}
+      <div ref={target}></div>
     </IssueContext.Provider>
   );
 }
