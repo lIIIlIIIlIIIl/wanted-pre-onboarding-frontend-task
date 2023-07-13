@@ -43,8 +43,6 @@ export function IssueDetailProvider({
   useEffect(() => {
     const getList = async () => {
       setIsLoading(true);
-      const response1 = await API?.getIssueDetail(Number(id));
-      console.log(response1);
       const response = await API?.getIssueDetail(Number(id));
 
       if (response) {
