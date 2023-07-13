@@ -1,4 +1,4 @@
-export interface Root {
+export interface RootIssue {
   url: string;
   repository_url: string;
   labels_url: string;

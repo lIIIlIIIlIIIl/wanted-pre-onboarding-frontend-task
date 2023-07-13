@@ -20,13 +20,13 @@ const Child = () => {
               title={response.issue.title}
               writer={response.issue.writer}
               date={response.issue.date}
-              comment={response.issue.comment}
+              comments={response.issue.comments}
               avatar_url={response.issue.avatar_url}
             />
           </div>
           <div className="detail_mark">
             <ReactMarkdown
-              children={response.issue.body}
+              children={response.issue.body || ""}
               components={{
                 code({ node, inline, className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || "");

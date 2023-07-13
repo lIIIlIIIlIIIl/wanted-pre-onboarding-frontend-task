@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { IssueDetailType } from "../types/issueTpye";
-import IssueDetailService from "../service/IssueDetailService";
+import { IssueDetail } from "../types/issueTpye";
+import { useApi } from "./APIContext";
 
 interface DetailContextType {
   issue: IssueType;
   isLoading: boolean;
 }
 
-type IssueType = IssueDetailType;
+type IssueType = IssueDetail;
 
 interface IssueListProviderProps {
   id: number | undefined;
@@ -19,7 +19,7 @@ const DEFAULT_VALUE = {
   title: "",
   writer: "",
   date: "",
-  comment: 0,
+  comments: 0,
   avatar_url: "",
   body: "",
 };
@@ -31,8 +31,6 @@ const DetailContext = createContext<DetailContextType>({
 
 export const useIssue = () => useContext(DetailContext);
 
-const issueDetailservice = new IssueDetailService();
-
 export function IssueDetailProvider({
   children,
   id = 0,
@@ -40,19 +38,26 @@ export function IssueDetailProvider({
   const [issue, setIssue] = useState<IssueType>(DEFAULT_VALUE);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const API = useApi();
+
   useEffect(() => {
     const getList = async () => {
       setIsLoading(true);
-      const response = await issueDetailservice.get(Number(id));
-      setIssue(response);
-      setIsLoading(false);
+      const response1 = await API?.getIssueDetail(Number(id));
+      console.log(response1);
+      const response = await API?.getIssueDetail(Number(id));
+
+      if (response) {
+        setIssue(response);
+        setIsLoading(false);
+      }
     };
     getList();
 
     return () => {
       setIssue(DEFAULT_VALUE);
     };
-  }, [id]);
+  }, [id, API]);
 
   return (
     <DetailContext.Provider value={{ issue, isLoading }}>

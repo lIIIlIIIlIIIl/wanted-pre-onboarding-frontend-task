@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { IssueType } from "../types/issueTpye";
-import IssueListService from "../service/IssueListService";
-
+import { useApi } from "./APIContext";
 interface IssueContextType {
   issueList: IssueType[][];
   isLoading: boolean;
@@ -16,12 +15,12 @@ const IssueContext = createContext<IssueContextType | null>(null);
 
 export const useIssueList = () => useContext(IssueContext);
 
-const issueListservice = new IssueListService();
-
 export function IssueListProvider({ children }: IssueListProviderProps) {
   const [issueList, setIssueList] = useState<IssueType[][]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
+
+  const API = useApi();
 
   useEffect(() => {
     return () => {
@@ -36,9 +35,8 @@ export function IssueListProvider({ children }: IssueListProviderProps) {
   const handleIntersection = async (entries: IntersectionObserverEntry[]) => {
     const entry = entries[0];
     if (entry.isIntersecting) {
-      // 추가 데이터 로드
       setIsLoading(true);
-      const response = await issueListservice.get(page);
+      const response = await API?.getIssueList(page);
 
       if (response) setIssueList((prev) => [...prev, ...response]);
       setPage((prev) => prev + 1);

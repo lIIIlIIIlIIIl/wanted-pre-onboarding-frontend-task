@@ -17,7 +17,7 @@ const Child = () => {
                 title={issue.title}
                 writer={issue.writer}
                 date={issue.date}
-                comment={issue.comment}
+                comments={issue.comments}
               />
             </Link>
           ))}

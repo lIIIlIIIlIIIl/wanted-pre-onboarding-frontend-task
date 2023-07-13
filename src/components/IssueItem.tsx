@@ -9,7 +9,7 @@ const IssueItem: React.FC<IssueItemProps> = ({
   title,
   writer,
   date,
-  comment,
+  comments,
   avatar_url,
 }) => {
   return (
@@ -32,7 +32,7 @@ const IssueItem: React.FC<IssueItemProps> = ({
         </div>
 
         <div className="item_comment item_tr">
-          <span>코맨트 : {comment}</span>
+          <span>코맨트 : {comments}</span>
         </div>
       </div>
     </>
