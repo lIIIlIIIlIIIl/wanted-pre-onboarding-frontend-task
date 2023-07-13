@@ -1,4 +1,4 @@
-# wanted-pre-onboarding-frontend
+# wanted-pre-onboarding
 
 </br>
 
@@ -57,3 +57,9 @@ React, TypeScript, Axios, react-markdown, remark-gfm
 해당 레파지토리를 clone 후, `npm install & npm start` 명령러를 통해 실행시킬 수 있습니다.
 
 </br>
+
+### 베포
+
+---
+
+https://wanted-pre-onboarding-frontend-task.vercel.app/
