@@ -3,6 +3,8 @@ import remarkGfm from "remark-gfm";
 import IssueItem from "../../components/IssueItem";
 import { useIssue } from "../../context/DetailContext";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const Child = () => {
   const response = useIssue();
@@ -25,6 +27,24 @@ const Child = () => {
           <div className="detail_mark">
             <ReactMarkdown
               children={response.issue.body}
+              components={{
+                code({ node, inline, className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      {...props}
+                      children={String(children).replace(/\n$/, "")}
+                      style={tomorrow}
+                      language={match[1]}
+                      PreTag="div"
+                    />
+                  ) : (
+                    <code {...props} className={className}>
+                      {children}
+                    </code>
+                  );
+                },
+              }}
               remarkPlugins={[remarkGfm]}
             />
           </div>
