@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Detail from "./pages/Detail";
 import GeneralLayout from "./layout/GeneralLayout";
 import ScrollToTop from "./components/common/ScrollToTop";
+import ErrorPage from "./pages/404";
 
 interface RouterBase {
   path: string;
@@ -30,6 +31,7 @@ export const routers = createBrowserRouter(
           {router.element}
         </GeneralLayout>
       ),
+      errorElement: <ErrorPage />,
     };
   })
 );
